@@ -1,15 +1,35 @@
 let cart=[]
 let total=0
 
-function addToCart(name,price){
+fetch("/api/products")
+.then(res=>res.json())
+.then(data=>{
 
-let item=cart.find(p=>p.name===name)
+let html=""
 
-if(item){
-item.qty++
-}else{
-cart.push({name,price,qty:1})
-}
+data.forEach(p=>{
+
+html += `
+<div class="product ${p.category}">
+<img src="images/${p.image}">
+<h3>${p.name}</h3>
+<p>₹${p.price}</p>
+<p>Stock: ${p.stock}</p>
+<button onclick="add('${p.name}',${p.price})">Add</button>
+</div>
+`
+
+})
+
+document.getElementById("products").innerHTML=html
+
+})
+
+function add(name,price){
+
+cart.push({name,price})
+
+total += price
 
 updateCart()
 
@@ -18,27 +38,12 @@ updateCart()
 function updateCart(){
 
 let list=document.getElementById("cart")
+
 list.innerHTML=""
 
-total=0
+cart.forEach(i=>{
 
-cart.forEach((item,index)=>{
-
-let itemTotal=item.price*item.qty
-
-total+=itemTotal
-
-let li=document.createElement("li")
-
-li.innerHTML=
-item.name+" ₹"+item.price+
-" x "+item.qty+
-" = ₹"+itemTotal+
-" <button onclick='increase("+index+")'>+</button>"+
-" <button onclick='decrease("+index+")'>-</button>"+
-" <button onclick='removeItem("+index+")'>❌</button>"
-
-list.appendChild(li)
+list.innerHTML += `<li>${i.name} ₹${i.price}</li>`
 
 })
 
@@ -46,89 +51,44 @@ document.getElementById("total").innerText=total
 
 }
 
-function increase(i){
-cart[i].qty++
-updateCart()
-}
+function placeOrder(){
 
-function decrease(i){
+fetch("/api/orders",{
 
-cart[i].qty--
+method:"POST",
+headers:{'Content-Type':'application/json'},
 
-if(cart[i].qty<=0){
-cart.splice(i,1)
-}
+body:JSON.stringify({
+cart:cart,
+total:total
+})
 
-updateCart()
+})
 
-}
+alert("Order placed")
 
-function removeItem(i){
-
-cart.splice(i,1)
+cart=[]
+total=0
 
 updateCart()
 
 }
 
-function sendWhatsApp(){
+document.getElementById("search").addEventListener("keyup",function(){
 
-let msg="Order from Mamta Infotech:%0A"
+let v=this.value.toLowerCase()
 
-cart.forEach(item=>{
-msg+=item.name+" x"+item.qty+" = ₹"+(item.price*item.qty)+"%0A"
-})
+document.querySelectorAll(".product").forEach(p=>{
 
-msg+="Total = ₹"+total
-
-window.open("https://wa.me/919901129675?text="+msg)
-
-}
-
-function downloadPDF(){
-
-const { jsPDF } = window.jspdf
-
-let doc=new jsPDF()
-
-let y=10
-
-doc.text("Mamta Infotech Bill",10,y)
-
-y+=10
-
-cart.forEach(item=>{
-doc.text(item.name+" x"+item.qty+" = ₹"+(item.price*item.qty),10,y)
-y+=10
-})
-
-doc.text("Total: ₹"+total,10,y+10)
-
-doc.save("bill.pdf")
-
-}
-
-function searchProduct(){
-
-let input=document.getElementById("search").value.toLowerCase()
-
-let products=document.querySelectorAll(".product")
-
-products.forEach(p=>{
-
-let text=p.innerText.toLowerCase()
-
-p.style.display=text.includes(input)?"block":"none"
+p.style.display=p.innerText.toLowerCase().includes(v)?"block":"none"
 
 })
 
-}
+})
 
 function filterCategory(cat){
 
-let products=document.querySelectorAll(".product")
-
-products.forEach(p=>{
+document.querySelectorAll(".product").forEach(p=>{
 
 if(cat==="all"||p.classList.contains(cat)){
 p.style.display="block"
@@ -138,8 +98,4 @@ p.style.display="none"
 
 })
 
-}
-
-function toggleDark(){
-document.body.classList.toggle("dark")
 }
