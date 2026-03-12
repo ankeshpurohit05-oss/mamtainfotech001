@@ -1,15 +1,24 @@
-let orders=[]
+let orders = []
 
 export default function handler(req,res){
 
-if(req.method==="POST"){
+if(req.method === "POST"){
 
-orders.push(req.body)
+const order = req.body
 
-return res.status(200).json({message:"Order saved"})
+order.id = Date.now()
+order.date = new Date()
+
+orders.push(order)
+
+res.status(200).json(order)
 
 }
 
+if(req.method === "GET"){
+
 res.status(200).json(orders)
+
+}
 
 }
