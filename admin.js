@@ -12,7 +12,7 @@ orders.forEach(order=>{
 
 let orderDate = new Date(order.date)
 
-let days = (today - orderDate) / (1000*60*60*24)
+let days = (today - orderDate)/(1000*60*60*24)
 
 if(days <= 30){
 
