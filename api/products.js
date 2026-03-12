@@ -11,7 +11,15 @@ const products = [
 { id:7,name:"Acer 135W Charger",price:950,stock:10,image:"7.jpeg"},
 { id:8,name:"HP Laptop Bag",price:700,stock:12,image:"8.jpeg"},
 { id:9,name:"Consistent Monitor",price:1850,stock:6,image:"9.jpeg"},
-{ id:10,name:"Dell Original Adapter",price:1000,stock:8,image:"10.jpeg"}
+{ id:10,name:"Dell Original Adapter",price:1000,stock:8,image:"10.jpeg"},
+
+{ id:11,name:"Laptop Display Panel",price:4500,stock:6,image:"11.jpeg"},
+{ id:12,name:"Laptop Keyboard Panel",price:1500,stock:10,image:"12.jpeg"},
+{ id:13,name:"Gaming Laptop Keyboard",price:2500,stock:8,image:"13.jpeg"},
+{ id:14,name:"Acer Laptop Charger",price:1200,stock:9,image:"14.jpeg"},
+{ id:15,name:"HP Wireless Mouse",price:500,stock:15,image:"15.jpeg"},
+{ id:16,name:"Laptop Screen Replacement",price:4000,stock:4,image:"16.jpeg"},
+{ id:17,name:"HP Wired Mouse",price:250,stock:18,image:"17.jpeg"}
 
 ]
 
