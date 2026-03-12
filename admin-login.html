@@ -1,43 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+<meta charset="UTF-8">
 <title>Admin Login</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h2>Owner Login</h2>
+<h2>Admin Login</h2>
 
 <input type="text" id="username" placeholder="Username"><br><br>
+
 <input type="password" id="password" placeholder="Password"><br><br>
 
 <button onclick="login()">Login</button>
 
 <p id="error"></p>
 
-<script>
-
-function login(){
-
-let user=document.getElementById("username").value
-let pass=document.getElementById("password").value
-
-if(user==="owner" && pass==="mamta123"){
-
-localStorage.setItem("admin","true")
-
-window.location="admin.html"
-
-}else{
-
-document.getElementById("error").innerText="Invalid login"
-
-}
-
-}
-
-</script>
+<script src="admin-login.js"></script>
 
 </body>
+
 </html>
