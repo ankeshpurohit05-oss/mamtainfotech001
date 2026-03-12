@@ -3,7 +3,7 @@
 
 <head>
 
-<title>Admin Dashboard</title>
+<title>Mamta Infotech Admin</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -13,37 +13,21 @@
 
 <h1>Mamta Infotech Owner Dashboard</h1>
 
-<button onclick="logout()">Logout</button>
+<h2>30 Day Business Report</h2>
+
+<p>Total Orders: <span id="orders"></span></p>
+
+<p>Revenue: ₹<span id="revenue"></span></p>
+
+<p>Cost: ₹<span id="cost"></span></p>
+
+<p>Profit / Loss: ₹<span id="profit"></span></p>
 
 <h2>Stock</h2>
 
 <div id="stock"></div>
 
-<h2>Profit / Loss</h2>
-
-<p>Total Revenue ₹<span id="revenue">0</span></p>
-
-<p>Profit ₹<span id="profit">0</span></p>
-
 <script src="admin.js"></script>
-
-<script>
-
-if(localStorage.getItem("admin")!=="true"){
-
-window.location="admin-login.html"
-
-}
-
-function logout(){
-
-localStorage.removeItem("admin")
-
-window.location="admin-login.html"
-
-}
-
-</script>
 
 </body>
 
