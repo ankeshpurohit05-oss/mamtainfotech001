@@ -1,3 +1,8 @@
+if(localStorage.getItem("adminLoggedIn") !== "true"){
+window.location = "admin-login.html"
+}
+
+
 function loadAdmin(){
 
 let orders = JSON.parse(localStorage.getItem("orders")) || []
