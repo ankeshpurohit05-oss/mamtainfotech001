@@ -1,8 +1,9 @@
 {
-"name":"Mamta Infotech",
-"short_name":"MamtaStore",
-"start_url":"/",
-"display":"standalone",
-"background_color":"#ffffff",
-"theme_color":"#0b5ed7"
+  "name": "Mamta Infotech",
+  "short_name": "MamtaStore",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e63c6",
+  "icons": []
 }
