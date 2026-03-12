@@ -1,19 +1,27 @@
-fetch("/api/orders")
-.then(res=>res.json())
-.then(data=>{
+async function loadAdmin(){
 
-let revenue=0
+const res = await fetch("/api/products")
 
-data.forEach(o=>{
-revenue+=o.total
-})
+const products = await res.json()
 
-document.getElementById("stats").innerHTML=`
+const stockDiv=document.getElementById("stock")
 
-Total Orders: ${data.length}<br>
-Revenue: ₹${revenue}<br>
-Profit: ₹${revenue*0.3}
+products.forEach(p=>{
+
+stockDiv.innerHTML+=`
+
+<div>
+
+${p.name} | Price ₹${p.price} | Stock ${p.stock}
+
+</div>
+
+<hr>
 
 `
 
 })
+
+}
+
+loadAdmin()
