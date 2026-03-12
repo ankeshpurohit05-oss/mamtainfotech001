@@ -7,6 +7,7 @@ if(req.method === "POST"){
 const order = req.body
 
 order.id = Date.now()
+
 order.date = new Date()
 
 orders.push(order)
