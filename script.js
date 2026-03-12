@@ -1,60 +1,96 @@
-let cart = []
-let total = 0
+let cart = [];
+let total = 0;
 
+/* Load products from API */
 async function loadProducts(){
 
-const res = await fetch("/api/products")
-const products = await res.json()
+const res = await fetch("/api/products");
+const products = await res.json();
 
-const container = document.querySelector(".product-grid")
-container.innerHTML=""
+const container = document.querySelector(".product-grid");
 
-products.forEach(p => {
+container.innerHTML = "";
 
-const div = document.createElement("div")
-div.className="product"
+products.forEach(product => {
+
+const div = document.createElement("div");
+div.className = "product";
 
 div.innerHTML = `
-<img src="${p.image}">
-<h3>${p.name}</h3>
-<p>₹${p.price}</p>
-<button onclick="addToCart('${p.name}',${p.price})">
+<img src="${product.image}" width="200">
+<h3>${product.name}</h3>
+<p>₹${product.price}</p>
+<button onclick="addToCart('${product.name}',${product.price})">
 Add To Cart
 </button>
-`
+`;
 
-container.appendChild(div)
+container.appendChild(div);
 
-})
+});
 
 }
 
+/* Add item to cart */
 function addToCart(name,price){
 
-cart.push({name,price})
-total += price
+cart.push({
+name:name,
+price:price
+});
 
-updateCart()
+total += price;
+
+updateCart();
 
 }
 
+/* Update cart UI */
 function updateCart(){
 
-const list = document.getElementById("cart-items")
-const totalBox = document.getElementById("total")
+const cartList = document.getElementById("cart-items");
+const totalBox = document.getElementById("total");
 
-list.innerHTML=""
+cartList.innerHTML = "";
 
-cart.forEach(item=>{
+cart.forEach(item => {
 
-const li = document.createElement("li")
-li.textContent = item.name+" - ₹"+item.price
-list.appendChild(li)
+const li = document.createElement("li");
 
-})
+li.textContent = item.name + " - ₹" + item.price;
 
-totalBox.textContent = total
+cartList.appendChild(li);
+
+});
+
+totalBox.textContent = total;
 
 }
 
-window.onload = loadProducts
+/* Place order via WhatsApp */
+function placeOrder(){
+
+if(cart.length === 0){
+
+alert("Cart is empty");
+
+return;
+
+}
+
+let message = "Order from Mamta Infotech:%0A";
+
+cart.forEach(item => {
+
+message += item.name + " - ₹" + item.price + "%0A";
+
+});
+
+message += "Total: ₹" + total;
+
+window.open("https://wa.me/919901129675?text=" + message);
+
+}
+
+/* Load products when page opens */
+window.onload = loadProducts;
