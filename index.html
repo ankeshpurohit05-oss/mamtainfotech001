@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mamta Infotech Store</title>
+<title>Mamta Infotech | Laptop Parts Shop</title>
 
 <link rel="stylesheet" href="style.css">
-<link rel="manifest" href="manifest.json">
 
 </head>
 
@@ -18,34 +18,78 @@
 <h1>Mamta Infotech</h1>
 <p>Bangalore Laptop Parts Store</p>
 
-<input type="text" id="search" placeholder="Search product">
-
 </header>
 
-<section class="filters">
 
-<button onclick="filterCategory('all')">All</button>
-<button onclick="filterCategory('display')">Displays</button>
-<button onclick="filterCategory('mouse')">Mouse</button>
-<button onclick="filterCategory('charger')">Chargers</button>
+<nav>
+
+<a href="#">Home</a>
+<a href="#products">Products</a>
+<a href="#cart">Cart</a>
+<a href="#contact">Contact</a>
+
+</nav>
+
+
+<section class="hero">
+
+<h2>Best Laptop Parts in Bangalore</h2>
+<p>Displays | Chargers | Accessories</p>
 
 </section>
 
-<section id="products" class="product-grid"></section>
 
-<section class="cart">
+<!-- PRODUCTS -->
 
-<h2>Cart</h2>
+<section id="products">
 
-<ul id="cart"></ul>
+<h2>Our Products</h2>
 
-<h3>Total ₹<span id="total">0</span></h3>
+<div class="product-grid">
+
+<!-- Products will load from API -->
+
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cart" class="cart">
+
+<h2>Your Cart</h2>
+
+<ul id="cart-items"></ul>
+
+<p>Total ₹<span id="total">0</span></p>
 
 <button onclick="placeOrder()">Place Order</button>
 
 </section>
 
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<h2>Contact Us</h2>
+
+<p>Shop Name: Mamta Infotech</p>
+<p>Location: Bangalore, India</p>
+<p>Phone: +91 99011 29675</p>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 Mamta Infotech | Laptop Parts Store</p>
+
+</footer>
+
 <script src="script.js"></script>
 
 </body>
+
 </html>
