@@ -1,24 +1,23 @@
-let cart=[]
-let total=0
+let cart = []
+let total = 0
 
+/* Load products from API */
 async function loadProducts(){
 
 const res = await fetch("/api/products")
-
 const products = await res.json()
 
 const grid = document.querySelector(".product-grid")
 
-grid.innerHTML=""
+grid.innerHTML = ""
 
-products.forEach(p=>{
+products.forEach(p => {
 
-const div=document.createElement("div")
+const div = document.createElement("div")
 
-div.className="product"
+div.className = "product"
 
-div.innerHTML=`
-
+div.innerHTML = `
 <img src="${p.image}" width="200">
 
 <h3>${p.name}</h3>
@@ -28,9 +27,8 @@ div.innerHTML=`
 <p>Stock: ${p.stock}</p>
 
 <button onclick="addToCart('${p.name}',${p.price})">
-Add To Cart
+Add to Cart
 </button>
-
 `
 
 grid.appendChild(div)
@@ -39,88 +37,81 @@ grid.appendChild(div)
 
 }
 
+/* Add product to cart */
+
 function addToCart(name,price){
 
-cart.push({name,price})
+cart.push({
+name:name,
+price:price
+})
 
-total+=price
+total += price
 
 updateCart()
 
 }
 
+/* Update cart display */
+
 function updateCart(){
 
-const list=document.getElementById("cart-items")
+const list = document.getElementById("cart-items")
+const totalBox = document.getElementById("total")
 
-const totalBox=document.getElementById("total")
+list.innerHTML = ""
 
-list.innerHTML=""
+cart.forEach(item => {
 
-cart.forEach(item=>{
+const li = document.createElement("li")
 
-const li=document.createElement("li")
-
-li.innerText=item.name+" ₹"+item.price
+li.innerText = item.name + " - ₹" + item.price
 
 list.appendChild(li)
 
 })
 
-totalBox.innerText=total
+totalBox.innerText = total
 
 }
 
-async function placeOrder(){
+/* WhatsApp order system */
 
-if(cart.length===0){
+function placeOrder(){
 
-alert("Cart empty")
+if(cart.length === 0){
+
+alert("Cart is empty")
 
 return
 
 }
 
-let order={
+let message = "Order from Mamta Infotech:%0A%0A"
 
-items:cart,
-total:total
+cart.forEach(item => {
 
-}
-
-await fetch("/api/orders",{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify(order)
+message += item.name + " - ₹" + item.price + "%0A"
 
 })
 
-let message="Order from Mamta Infotech:%0A"
+message += "%0ATotal Amount: ₹" + total
 
-cart.forEach(item=>{
+let phone = "919901129675"
 
-message+=item.name+" ₹"+item.price+"%0A"
+let whatsappURL = "https://wa.me/" + phone + "?text=" + message
 
-})
+window.open(whatsappURL,"_blank")
 
-message+="Total ₹"+total
+/* Clear cart after order */
 
-window.open("https://wa.me/919901129675?text="+message)
-
-cart=[]
-total=0
+cart = []
+total = 0
 
 updateCart()
 
-alert("Order placed")
-
 }
 
-window.onload=loadProducts
+/* Load products when page opens */
+
+window.onload = loadProducts
