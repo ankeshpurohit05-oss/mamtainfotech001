@@ -1,33 +1,72 @@
 async function loadAdmin(){
 
-const res = await fetch("/api/products")
+const orderRes = await fetch("/api/orders")
 
-const products = await res.json()
+const orders = await orderRes.json()
 
-const stockDiv = document.getElementById("stock")
+const productRes = await fetch("/api/products")
 
-let revenue = 0
+const products = await productRes.json()
 
-let cost = 0
+let revenue=0
 
-products.forEach(p=>{
+let cost=0
 
-stockDiv.innerHTML += `
-<div>
-${p.name} | Price ₹${p.price} | Stock ${p.stock}
-</div>
-<hr>
-`
+let orderCount=0
 
-revenue += p.price * (10 - p.stock)
+const today=new Date()
 
-cost += p.price * 0.6
+orders.forEach(order=>{
+
+let orderDate=new Date(order.date)
+
+let days=(today-orderDate)/(1000*60*60*24)
+
+if(days<=30){
+
+orderCount++
+
+revenue+=order.total
+
+order.items.forEach(item=>{
+
+let p=products.find(prod=>prod.name===item.name)
+
+if(p){
+
+cost+=p.price*0.6
+
+}
 
 })
 
-document.getElementById("revenue").innerText = revenue
+}
 
-document.getElementById("profit").innerText = revenue - cost
+})
+
+let profit=revenue-cost
+
+document.getElementById("orders").innerText=orderCount
+document.getElementById("revenue").innerText=revenue
+document.getElementById("cost").innerText=Math.round(cost)
+document.getElementById("profit").innerText=Math.round(profit)
+
+const stockDiv=document.getElementById("stock")
+
+products.forEach(p=>{
+
+stockDiv.innerHTML+=`
+
+<div>
+
+${p.name} | Price ₹${p.price} | Stock ${p.stock}
+
+</div>
+<hr>
+
+`
+
+})
 
 }
 
